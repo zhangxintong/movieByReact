@@ -1,15 +1,13 @@
-
 @font-face {
   font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?6394vp');
-  src:  url('../fonts/icomoon.eot?6394vp#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon.ttf?6394vp') format('truetype'),
-    url('../fonts/icomoon.woff?6394vp') format('woff'),
-    url('../fonts/icomoon.svg?6394vp#icomoon') format('svg');
+  src:  url('../fonts/icomoon.eot?i3kmcf');
+  src:  url('../fonts/icomoon.eot?i3kmcf#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?i3kmcf') format('truetype'),
+    url('../fonts/icomoon.woff?i3kmcf') format('woff'),
+    url('../fonts/icomoon.svg?i3kmcf#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
-
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
@@ -40,12 +38,6 @@
 .icon-image:before {
   content: "\f03e";
 }
-.icon-photo:before {
-  content: "\f03e";
-}
-.icon-picture-o:before {
-  content: "\f03e";
-}
 .icon-map-marker:before {
   content: "\f041";
 }
@@ -69,4 +61,7 @@
 }
 .icon-tablet:before {
   content: "\f10a";
+}
+.icon-star-half:before {
+  content: "\e9d8";
 }

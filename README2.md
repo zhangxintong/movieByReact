@@ -28,4 +28,29 @@ webpake 升级到2.0以后webpack.config.js配置变化，本项目使用的是w
             }
         ]
     },
+##2.react-router 报错
+![alt text](./react-router.png "chrome后台报错")
+项目中的react-router 版本 4.1.1
+
+1).react-router 升级 参考官网
+https://reacttraining.com/react-router/web/api/Route/Route-render-methods
+
+2).安装所必须要的包：
+
+npm install --save-dev react-router
+
+npm install --save-dev react-router-dom
+
+3).基本引用：（原Router变为HashRouter，具体组件的配置 参数参考官网）
+
+4).react-router 4.0 对于接受参数采用 { this.props.match.params.id }
+
+如下例子：<Route path="list/:id"></Router> 
+        <Link to="list/123456"></Link>
+
+获取参数值的方式是：{ this.props.match.params.id }
+
+
+
+ 
 

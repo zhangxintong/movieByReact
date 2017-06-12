@@ -1,7 +1,10 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { connect } from 'react-redux'
-
+import HomeHeader from '../../components/HomeHeader'
+import TabsControl from '../../components/TabsControl'
+import InThreaters from '../InTheaters'
+import ComingSoon from '../ComingSoon'
 class Home extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -9,7 +12,17 @@ class Home extends React.Component {
     }
     render() {
         return (
-            <h1>Home Hello</h1>
+        	<div>
+            <HomeHeader cityName={this.props.userinfo.cityName}/>
+            <TabsControl>
+            	<div name = "正在热映">
+                    <InThreaters/>
+                </div>
+                <div name = "即将上映">
+                    <ComingSoon/>
+                </div>
+            </TabsControl>
+            </div>
         )
     }
 }
