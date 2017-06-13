@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=dev webpack-dev-server --progress --colors",
-    "copy": "copyfiles -f ./app/index.tmpl.html  ./dist",
+    "copy": "copyfiles -f ./build/bundle.js ./build/d05f77907ab3e1cb058d296394c2ffcf.svg ./build/index.html ./dist",
     "dist": "npm run copy & webpack --env=dist",
     "mock": "node --harmony ./mock/server.js",
     "build": "rm -rf ./build && NODE_ENV=production webpack --config ./webpack.production.config.js --progress --colors"
@@ -28,6 +28,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
+    "jquery": "^3.2.1",
     "json-loader": "^0.5.4",
     "koa": "^1.2.2",
     "koa-router": "^5.4.0",
