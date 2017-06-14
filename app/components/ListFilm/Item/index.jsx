@@ -1,6 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import Star from '../../Star'
+import {Link} from 'react-router'
 
 import './style.less'
 class Item extends React.Component {
@@ -13,6 +14,7 @@ class Item extends React.Component {
     	//console.log(item)
         return (
         	<div className="list-item clear-fix">
+        		<Link to={'/detail/'+item.id+'/'+item.title}>
         		<div className="item-img-container float-left">
         			<img src={item.images.small} alt={item.alt}/>
         		</div>
@@ -30,6 +32,7 @@ class Item extends React.Component {
 		               } 
 	              </p>
         		</div>
+        		</Link>
         	</div>
         )
     }

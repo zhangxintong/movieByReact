@@ -1,0 +1,63 @@
+body *{
+        margin: 0px;
+        padding:0px;
+       // background: #fff;
+    }
+.loading { width: 100px; height: 100px; margin: 10px auto; border: 8px solid #333; border-left: 8px solid red; border-radius: 100px; animation: 2s loadings linear infinite;}
+@keyframes loadings {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+.loading1 {
+    margin: 10px auto;
+    text-align: center;
+    font-size: 0;
+    width:100%;
+    height: 100%;
+}
+.loading1 .item {
+    display: inline-block;
+    margin-right: 5px;
+    width: 5px;
+    height: 45px;
+    background-color: #000;
+}
+.loading1 .loading-item1 {
+    -moz-animation: loading-animation 1.2s ease infinite;
+    -webkit-animation: loading-animation 1.2s ease infinite;
+    animation: loading-animation 1.2s ease infinite;
+}
+.loading1 .loading-item2 {
+    -moz-animation: loading-animation 1.2s ease -1.1s infinite;
+    -webkit-animation: loading-animation 1.2s ease -1.1s infinite;
+    animation: loading-animation 1.2s ease -1.1s infinite;
+}
+.loading1 .loading-item3 {
+    -moz-animation: loading-animation 1.2s ease -1.0s infinite;
+    -webkit-animation: loading-animation 1.2s ease -1.0s infinite;
+    animation: loading-animation 1.2s ease -1.0s infinite;
+}
+.loading1 .loading-item4 {
+    -moz-animation: loading-animation 1.2s ease -0.9s infinite;
+    -webkit-animation: loading-animation 1.2s ease -0.9s infinite;
+    animation: loading-animation 1.2s ease -0.9s infinite;
+}
+.loading1 .loading-item5 {
+    -moz-animation: loading-animation 1.2s ease -0.8s infinite;
+    -webkit-animation: loading-animation 1.2s ease -0.8s infinite;
+    animation: loading-animation 1.2s ease -0.8s infinite;
+}
+@keyframes loading-animation {
+    0%,
+    40%,
+    100%{
+        transform: scaleY(0.5);
+    }
+    20% {
+        transform: scaleY(1);
+    }
+} 

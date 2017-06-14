@@ -1,6 +1,8 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import ListFilm from '../../components/ListFilm'
+//import {spinner}  from 'react-core-image-upload'
+import {LoadingData}from '../../components/Loading'
 
 class InTheaters extends React.Component {
     constructor(props, context) {
@@ -12,7 +14,6 @@ class InTheaters extends React.Component {
             isLoadingMore: false,
             page: 0
         }
-        this.resultHandle = this.resultHandle.bind(this)
         this.getData = this.getData.bind(this)
     }
     render() {
@@ -23,7 +24,9 @@ class InTheaters extends React.Component {
             {
                 this.state.data.length
                 ? <ListFilm data={this.state.data}/>
-                : <div>{/* 加载中... */}</div>
+                : <div>
+                	<LoadingData />
+                  </div>
             }
             </div>
 
@@ -55,31 +58,7 @@ class InTheaters extends React.Component {
 		})
 
     }
-    // 处理数据
-    resultHandle(result) {
-        result.then(res => {
-            return res.json()
-        }).then(json => {
-            // 增加 page 技术
-            // const page = this.state.page
-            // this.setState({
-            //     page: page + 1
-            // })
-
-            // const hasMore = json.hasMore
-            const data = json.data
-
-            this.setState({
-                //hasMore: hasMore,
-                // 注意，这里讲最新获取的数据，拼接到原数据之后，使用 concat 函数
-                data: this.state.data.concat(data)
-            })
-        }).catch(ex => {
-            if (__DEV__) {
-                console.error('首页获取影片列表失败, ', ex.message)
-            }
-        })
-    }
+  
 }
 
 export default InTheaters

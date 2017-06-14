@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute } from 'react-router'
 import App from '../containers'
 import Home from '../containers/Home'
 import City from '../containers/City'
-
+import Detail from '../containers/Detail'
 import NotFound from '../containers/404'
 // import Login from '../containers/Login'
 
@@ -18,7 +18,7 @@ class RouterMap extends React.Component {
                 <Route path='/' component={App}>
                     <IndexRoute component={Home}/>
                     <Route path='/city' component={City}/>
-
+                    <Route path='/detail/:id/:title' component={Detail}/>
                     <Route path='*' component={NotFound}/>
                 </Route>
             </Router>
