@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3620ce5e8c9e1f4ffa20"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "aa45fbe8babd75222b6b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -29821,7 +29821,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//import store from './store'
 	exports.default = (0, _redux.combineReducers)({
 		userinfo: _userinfo2.default
 	});
@@ -30308,7 +30307,11 @@
 
 	var _StarMsg2 = _interopRequireDefault(_StarMsg);
 
-	var _ = __webpack_require__(347);
+	var _SearchResult = __webpack_require__(347);
+
+	var _SearchResult2 = _interopRequireDefault(_SearchResult);
+
+	var _ = __webpack_require__(354);
 
 	var _2 = _interopRequireDefault(_);
 
@@ -30349,6 +30352,7 @@
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/shortComment/:title/:id', component: _ShortComment2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/longComment/:title/:id', component: _LongComment2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/starMsg/:id', component: _StarMsg2.default }),
+	                    _react2.default.createElement(_reactRouter.Route, { path: '/search/:val', component: _SearchResult2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '*', component: _2.default })
 	                )
 	            );
@@ -30737,7 +30741,7 @@
 	    }, {
 	        key: 'enterHandle',
 	        value: function enterHandle(value) {
-	            _reactRouter.hashHistory.push('/search/all/' + encodeURIComponent(value));
+	            _reactRouter.hashHistory.push('/search/' + encodeURIComponent(value));
 	        }
 	    }]);
 
@@ -32148,6 +32152,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -32253,10 +32261,9 @@
 	}(_react2.default.Component);
 
 	// 使用 require.ensure 异步加载，还不支持 ES6 的 export 
-	// export default Detail
 
 
-	module.exports = Detail;
+	exports.default = Detail;
 
 /***/ }),
 /* 325 */
@@ -33639,6 +33646,367 @@
 
 /***/ }),
 /* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsPureRenderMixin = __webpack_require__(290);
+
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+	var _Header = __webpack_require__(325);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Loading = __webpack_require__(313);
+
+	var _SearchResultList = __webpack_require__(348);
+
+	var _SearchResultList2 = _interopRequireDefault(_SearchResultList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	//import Info from './subpage/Info.jsx'
+	//import Comment from './subpage/Comment'
+
+
+	var SearchResult = function (_React$Component) {
+	    _inherits(SearchResult, _React$Component);
+
+	    function SearchResult(props, context) {
+	        _classCallCheck(this, SearchResult);
+
+	        var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this, props, context));
+
+	        _this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+	        _this.getData = _this.getData.bind(_this);
+	        _this.state = {
+	            info: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(SearchResult, [{
+	        key: 'render',
+	        value: function render() {
+	            //获取搜索的内容
+	            var val = this.props.params.val;
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                this.state.info ? _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(_Header2.default, { title: "'" + val + "' 的搜索结果, 共" + this.state.info.total + "条信息" }),
+	                    _react2.default.createElement(_SearchResultList2.default, { data: this.state.info.subjects })
+	                ) : _react2.default.createElement(_Loading.LoadingData, null)
+	            );
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.getData();
+	        }
+	    }, {
+	        key: 'getData',
+	        value: function getData() {
+	            var _this2 = this;
+
+	            var url = 'https://api.douban.com/v2/movie/search?q=' + this.props.params.val;
+	            $.ajax({
+	                // 注意这里有个参数callback=?
+	                url: url,
+	                async: true, // 同步请求，发送请求后浏览器将被锁定，只有等到该请求完成(无论成功或失败)后，用户才能操作，js代码才会继续执行
+	                dataType: "jsonp", // 返回JSON格式的数据
+	                success: function success(data, textStatus, jqXHR) {
+	                    console.log(data);
+	                    return data;
+	                },
+	                error: function error() {
+	                    console.log("&&&");
+	                }
+	            }).then(function (res) {
+	                console.log("*&&&&");
+	                console.log(res);
+	                _this2.setState({
+	                    info: res
+	                });
+	            });
+	        }
+	    }]);
+
+	    return SearchResult;
+	}(_react2.default.Component);
+
+	exports.default = SearchResult;
+
+/***/ }),
+/* 348 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsPureRenderMixin = __webpack_require__(290);
+
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+	var _Item = __webpack_require__(349);
+
+	var _Item2 = _interopRequireDefault(_Item);
+
+	__webpack_require__(352);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SearchResultList = function (_React$Component) {
+	    _inherits(SearchResultList, _React$Component);
+
+	    function SearchResultList(props, context) {
+	        _classCallCheck(this, SearchResultList);
+
+	        var _this = _possibleConstructorReturn(this, (SearchResultList.__proto__ || Object.getPrototypeOf(SearchResultList)).call(this, props, context));
+
+	        _this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(SearchResultList, [{
+	        key: 'render',
+	        value: function render() {
+	            var data = this.props.data;
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'res-theaters-area ' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'res-movies-wrap' },
+	                    data.map(function (item, index) {
+	                        return _react2.default.createElement(_Item2.default, { key: index, data: item });
+	                    })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return SearchResultList;
+	}(_react2.default.Component);
+
+	exports.default = SearchResultList;
+
+/***/ }),
+/* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+					value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsPureRenderMixin = __webpack_require__(290);
+
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+	var _Star = __webpack_require__(306);
+
+	var _Star2 = _interopRequireDefault(_Star);
+
+	var _reactRouter = __webpack_require__(214);
+
+	__webpack_require__(350);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Item = function (_React$Component) {
+					_inherits(Item, _React$Component);
+
+					function Item(props, context) {
+									_classCallCheck(this, Item);
+
+									var _this = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props, context));
+
+									_this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+									return _this;
+					}
+
+					_createClass(Item, [{
+									key: 'render',
+									value: function render() {
+													var data = this.props.data;
+													return _react2.default.createElement(
+																	_reactRouter.Link,
+																	{ to: '/detail/' + data.id + '/' + data.title },
+																	_react2.default.createElement(
+																					'div',
+																					{ className: 'res-movies-show' },
+																					_react2.default.createElement(
+																									'div',
+																									{ className: 'res-movies-show-child' },
+																									_react2.default.createElement(
+																													'div',
+																													null,
+																													_react2.default.createElement('img', { src: data.images.small, alt: data.alt })
+																									),
+																									_react2.default.createElement(
+																													'div',
+																													{ className: 'res-movieMsg' },
+																													_react2.default.createElement(
+																																	'h2',
+																																	null,
+																																	data.title
+																													),
+																													_react2.default.createElement(_Star2.default, { score: data.rating.average }),
+																													_react2.default.createElement(
+																																	'p',
+																																	null,
+																																	data.rating.average,
+																																	'\u5206(',
+																																	data.collect_count,
+																																	'\u8BC4\u4EF7)'
+																													),
+																													_react2.default.createElement(
+																																	'p',
+																																	null,
+																																	data.year,
+																																	'\u5E74'
+																													)
+																									)
+																					)
+																	)
+													);
+									}
+					}]);
+
+					return Item;
+	}(_react2.default.Component);
+
+	exports.default = Item;
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(351);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(281)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(351, function() {
+				var newContent = __webpack_require__(351);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(280)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".res-movies-show {\n  padding: 10px 20px;\n  background-color: #f8f8f8;\n  cursor: pointer;\n  font-size: 0;\n  color: #2c3e50;\n}\n.res-movies-show .res-movies-show-child {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding-bottom: 10px;\n  border-bottom: 1px solid #d6d6d6;\n}\n.res-movies-show .res-movies-show-child .res-movieMsg {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  padding-left: 20px;\n  vertical-align: top;\n}\n.res-movies-show .res-movies-show-child .res-movieMsg h2 {\n  font-size: 18px;\n  font-weight: 500;\n  margin-bottom: 5px;\n}\n.res-movies-show .res-movies-show-child .res-movieMsg .star-container {\n  font-size: 12px;\n}\n.res-movies-show .res-movies-show-child img {\n  border: 0;\n}\n.res-movies-show p {\n  font-size: 14px;\n  line-height: 2;\n  color: #666;\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 352 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(353);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(281)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(353, function() {
+				var newContent = __webpack_require__(353);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(280)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".res-theaters-area {\n  font-size: 0;\n}\n.res-theaters-area .res-movies-wrap {\n  text-decoration: none;\n  font-size: 0;\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
