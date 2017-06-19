@@ -8,6 +8,7 @@ import Detail from '../containers/Detail'
 import ShortComment from '../containers/ShortComment'
 import LongComment from '../containers/LongComment'
 import StarMsg from '../containers/StarMsg'
+import SearchResult from '../containers/SearchResult'
 import NotFound from '../containers/404'
 // import Login from '../containers/Login'
 
@@ -25,6 +26,7 @@ class RouterMap extends React.Component {
                     <Route path='/shortComment/:title/:id' component={ShortComment}/>
                     <Route path='/longComment/:title/:id' component={LongComment}/>
                     <Route path='/starMsg/:id' component={StarMsg} />
+                    <Route path='/search/:val' component={SearchResult} />
                     <Route path='*' component={NotFound}/>
                 </Route>
             </Router>
