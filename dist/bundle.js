@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1a0e01b7d864eec6ef31"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3620ce5e8c9e1f4ffa20"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -30296,7 +30296,19 @@
 
 	var _Detail2 = _interopRequireDefault(_Detail);
 
-	var _ = __webpack_require__(337);
+	var _ShortComment = __webpack_require__(337);
+
+	var _ShortComment2 = _interopRequireDefault(_ShortComment);
+
+	var _LongComment = __webpack_require__(338);
+
+	var _LongComment2 = _interopRequireDefault(_LongComment);
+
+	var _StarMsg = __webpack_require__(340);
+
+	var _StarMsg2 = _interopRequireDefault(_StarMsg);
+
+	var _ = __webpack_require__(347);
 
 	var _2 = _interopRequireDefault(_);
 
@@ -30334,6 +30346,9 @@
 	                    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/city', component: _City2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '/detail/:id/:title', component: _Detail2.default }),
+	                    _react2.default.createElement(_reactRouter.Route, { path: '/shortComment/:title/:id', component: _ShortComment2.default }),
+	                    _react2.default.createElement(_reactRouter.Route, { path: '/longComment/:title/:id', component: _LongComment2.default }),
+	                    _react2.default.createElement(_reactRouter.Route, { path: '/starMsg/:id', component: _StarMsg2.default }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: '*', component: _2.default })
 	                )
 	            );
@@ -32197,7 +32212,7 @@
 	                    null,
 	                    _react2.default.createElement(_Header2.default, { title: this.props.params.title }),
 	                    _react2.default.createElement(_DetailInfo2.default, { data: this.state.info }),
-	                    _react2.default.createElement(_CommentList2.default, { data: this.state.info.popular_comments })
+	                    _react2.default.createElement(_CommentList2.default, { data: this.state.info.popular_comments, title: this.props.params.title, id: this.props.params.id })
 	                ) : _react2.default.createElement(_Loading.LoadingData, null)
 	            );
 	        }
@@ -32386,6 +32401,8 @@
 
 	var _Star2 = _interopRequireDefault(_Star);
 
+	var _reactRouter = __webpack_require__(214);
+
 	__webpack_require__(329);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -32519,15 +32536,19 @@
 																																					'div',
 																																					{ key: index },
 																																					_react2.default.createElement(
-																																									'div',
-																																									null,
-																																									_react2.default.createElement('img', { src: item.avatars.small, alt: item.alt })
-																																					),
-																																					_react2.default.createElement(
-																																									'div',
-																																									{ className: 'msg-star-name' },
-																																									item.name,
-																																									'[\u5BFC\u6F14]'
+																																									_reactRouter.Link,
+																																									{ to: '/starMsg/' + item.id },
+																																									_react2.default.createElement(
+																																													'div',
+																																													null,
+																																													_react2.default.createElement('img', { src: item.avatars.small, alt: item.alt })
+																																									),
+																																									_react2.default.createElement(
+																																													'div',
+																																													{ className: 'msg-star-name' },
+																																													item.name,
+																																													'[\u5BFC\u6F14]'
+																																									)
 																																					)
 																																	);
 																													}),
@@ -32536,14 +32557,18 @@
 																																					'div',
 																																					{ key: index },
 																																					_react2.default.createElement(
-																																									'div',
-																																									null,
-																																									_react2.default.createElement('img', { src: item.avatars.small, alt: item.alt })
-																																					),
-																																					_react2.default.createElement(
-																																									'div',
-																																									{ className: 'msg-star-name' },
-																																									item.name
+																																									_reactRouter.Link,
+																																									{ to: '/starMsg/' + item.id },
+																																									_react2.default.createElement(
+																																													'div',
+																																													null,
+																																													_react2.default.createElement('img', { src: item.avatars.small, alt: item.alt })
+																																									),
+																																									_react2.default.createElement(
+																																													'div',
+																																													{ className: 'msg-star-name' },
+																																													item.name
+																																									)
 																																					)
 																																	);
 																													})
@@ -32623,6 +32648,8 @@
 
 	var _Item2 = _interopRequireDefault(_Item);
 
+	var _reactRouter = __webpack_require__(214);
+
 	__webpack_require__(335);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -32649,6 +32676,8 @@
 	        key: 'render',
 	        value: function render() {
 	            var data = this.props.data;
+	            var title = this.props.title;
+	            var id = this.props.id;
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'comment-list' },
@@ -32661,14 +32690,22 @@
 	                    return _react2.default.createElement(_Item2.default, { key: index, data: item });
 	                }),
 	                _react2.default.createElement(
-	                    'p',
-	                    { className: 'msg-all-Comment' },
-	                    '\u67E5\u770B\u5168\u90E8\u77ED\u8BC4\u8BBA'
+	                    _reactRouter.Link,
+	                    { to: '/shortComment/短评--' + title + '/' + id },
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: 'msg-all-Comment' },
+	                        '\u67E5\u770B\u5168\u90E8\u77ED\u8BC4\u8BBA'
+	                    )
 	                ),
 	                _react2.default.createElement(
-	                    'p',
-	                    { className: 'msg-all-Comment' },
-	                    '\u67E5\u770B\u5168\u90E8\u5F71\u8BC4'
+	                    _reactRouter.Link,
+	                    { to: '/longComment/长评--' + title + '/' + id },
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: 'msg-all-Comment' },
+	                        '\u67E5\u770B\u5168\u90E8\u5F71\u8BC4'
+	                    )
 	                )
 	            );
 	        }
@@ -32801,7 +32838,7 @@
 
 
 	// module
-	exports.push([module.id, ".comment-item {\n  display: block;\n  font-size: 12px;\n  color: #555;\n}\n.comment-item .msg-rating {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.comment-item .author-content {\n  color: #333;\n  margin-bottom: 10px;\n  margin-top: 10px;\n}\n.comment-item .author-img:last-child {\n  margin-bottom: 0;\n}\n.comment-item .author-img {\n  margin-bottom: 10px;\n  border-bottom: 1px solid #d6d3d3;\n}\n.comment-item .author-img img {\n  border-radius: 50%;\n}\n", ""]);
+	exports.push([module.id, ".comment-item {\n  display: block;\n  font-size: 12px;\n  color: #555;\n}\n.comment-item .msg-rating {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.comment-item .author-content {\n  color: #333;\n  margin-bottom: 10px;\n  margin-top: 10px;\n}\n.comment-item .author-img:last-child {\n  margin-bottom: 0;\n}\n.comment-item .author-img {\n  margin-bottom: 10px;\n  border-bottom: 1px solid #d6d3d3;\n}\n.comment-item .author-img img {\n  border-radius: 50%;\n}\n.largeCom-content {\n  margin-bottom: 10px;\n  color: #2c3e50;\n  font-size: 12px;\n}\n.largeCom-content h3 {\n  font-size: 16px;\n  font-weight: normal;\n}\n.largeCom-content img {\n  width: 48px;\n  height: 48px;\n  border-radius: 24px;\n  margin-right: 5px;\n}\n.largeCom-content .largeCom-content-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.largeCom-content .largeCom-content-header span {\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center;\n}\n.largeCom-content .largeCom-star {\n  display: inline-block;\n  line-height: 48px;\n}\n.largeCom-content footer {\n  text-align: right;\n}\n.largeCom-content .hide-content {\n  display: none;\n}\n.largeCom-content .show-content {\n  display: block;\n}\n", ""]);
 
 	// exports
 
@@ -32848,6 +32885,760 @@
 
 /***/ }),
 /* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsPureRenderMixin = __webpack_require__(290);
+
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+	var _Header = __webpack_require__(325);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Item = __webpack_require__(332);
+
+	var _Item2 = _interopRequireDefault(_Item);
+
+	var _Loading = __webpack_require__(313);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ShrotComment = function (_React$Component) {
+	    _inherits(ShrotComment, _React$Component);
+
+	    function ShrotComment(props, context) {
+	        _classCallCheck(this, ShrotComment);
+
+	        var _this = _possibleConstructorReturn(this, (ShrotComment.__proto__ || Object.getPrototypeOf(ShrotComment)).call(this, props, context));
+
+	        _this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+	        _this.getData = _this.getData.bind(_this);
+	        _this.state = {
+	            comments: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(ShrotComment, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                this.state.comments ? _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(_Header2.default, { title: this.props.params.title }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { padding: 10 } },
+	                        this.state.comments.map(function (item, index) {
+	                            return _react2.default.createElement(_Item2.default, { key: index, data: item });
+	                        })
+	                    )
+	                ) : _react2.default.createElement(_Loading.LoadingData, null)
+	            );
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.getData();
+	        }
+	    }, {
+	        key: 'getData',
+	        value: function getData() {
+	            var _this2 = this;
+
+	            var url = 'https://api.douban.com/v2/movie/subject/' + this.props.params.id + '/comments?apikey=0b2bdeda43b5688921839c8ecb20399b&count=40&client=something&udid=dddddddddddddddddddddd';
+	            $.ajax({
+	                // 注意这里有个参数callback=?
+	                url: url,
+	                async: true, // 同步请求，发送请求后浏览器将被锁定，只有等到该请求完成(无论成功或失败)后，用户才能操作，js代码才会继续执行
+	                dataType: "jsonp", // 返回JSON格式的数据
+	                success: function success(data, textStatus, jqXHR) {
+	                    console.log(data);
+	                    return data;
+	                },
+	                error: function error() {
+	                    console.log("&&&");
+	                }
+	            }).then(function (res) {
+	                console.log("*&&&&");
+	                console.log(res);
+	                _this2.setState({
+	                    comments: res.comments
+	                });
+	            });
+	        }
+	    }]);
+
+	    return ShrotComment;
+	}(_react2.default.Component);
+
+	exports.default = ShrotComment;
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsPureRenderMixin = __webpack_require__(290);
+
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+	var _Header = __webpack_require__(325);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Loading = __webpack_require__(313);
+
+	var _LongCommentItem = __webpack_require__(339);
+
+	var _LongCommentItem2 = _interopRequireDefault(_LongCommentItem);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var LongComment = function (_React$Component) {
+	    _inherits(LongComment, _React$Component);
+
+	    function LongComment(props, context) {
+	        _classCallCheck(this, LongComment);
+
+	        var _this = _possibleConstructorReturn(this, (LongComment.__proto__ || Object.getPrototypeOf(LongComment)).call(this, props, context));
+
+	        _this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+	        _this.getData = _this.getData.bind(_this);
+	        _this.state = {
+	            comments: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(LongComment, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                this.state.comments ? _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(_Header2.default, { title: this.props.params.title }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { padding: 10 } },
+	                        this.state.comments.map(function (item, index) {
+	                            return _react2.default.createElement(_LongCommentItem2.default, { key: index, data: item });
+	                        })
+	                    )
+	                ) : _react2.default.createElement(_Loading.LoadingData, null)
+	            );
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.getData();
+	        }
+	    }, {
+	        key: 'getData',
+	        value: function getData() {
+	            var _this2 = this;
+
+	            var url = 'https://api.douban.com/v2/movie/subject/' + this.props.params.id + '/reviews?apikey=0b2bdeda43b5688921839c8ecb20399b&start=0&count=20&client=something&udid=dddddddddddddddddddddd';
+	            $.ajax({
+	                // 注意这里有个参数callback=?
+	                url: url,
+	                async: true, // 同步请求，发送请求后浏览器将被锁定，只有等到该请求完成(无论成功或失败)后，用户才能操作，js代码才会继续执行
+	                dataType: "jsonp", // 返回JSON格式的数据
+	                success: function success(data, textStatus, jqXHR) {
+	                    console.log(data);
+	                    return data;
+	                },
+	                error: function error() {
+	                    console.log("&&&");
+	                }
+	            }).then(function (res) {
+	                console.log("*&&&&");
+	                console.log(res);
+	                _this2.setState({
+	                    comments: res.reviews
+	                });
+	            });
+	        }
+	    }]);
+
+	    return LongComment;
+	}(_react2.default.Component);
+
+	exports.default = LongComment;
+
+/***/ }),
+/* 339 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsPureRenderMixin = __webpack_require__(290);
+
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+	var _Star = __webpack_require__(306);
+
+	var _Star2 = _interopRequireDefault(_Star);
+
+	__webpack_require__(333);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var LongCommentItem = function (_React$Component) {
+	    _inherits(LongCommentItem, _React$Component);
+
+	    function LongCommentItem(props, context) {
+	        _classCallCheck(this, LongCommentItem);
+
+	        var _this = _possibleConstructorReturn(this, (LongCommentItem.__proto__ || Object.getPrototypeOf(LongCommentItem)).call(this, props, context));
+
+	        _this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+	        _this.showContent = _this.showContent.bind(_this);
+	        _this.state = {
+	            show: true
+	        };
+	        return _this;
+	    }
+
+	    _createClass(LongCommentItem, [{
+	        key: 'render',
+	        value: function render() {
+	            var item = this.props.data;
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'largeCom-content' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '\u6807\u9898:',
+	                    item.title
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'largeCom-content-header' },
+	                    _react2.default.createElement('img', { src: item.author.avatar, alt: item.author.alt }),
+	                    _react2.default.createElement(
+	                        'span',
+	                        null,
+	                        item.author.name
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'largeCom-star' },
+	                        _react2.default.createElement(_Star2.default, { score: item.rating.value * 2 })
+	                    ),
+	                    _react2.default.createElement(
+	                        'span',
+	                        null,
+	                        item.created_at
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { onClick: this.showContent, ref: 'summary' },
+	                    item.summary
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'hide-content', onClick: this.showContent, ref: 'content' },
+	                    item.content
+	                ),
+	                _react2.default.createElement(
+	                    'footer',
+	                    null,
+	                    item.useful_count,
+	                    '\u8D5E\u540C',
+	                    item.useless_count,
+	                    '\u53CD\u5BF9'
+	                )
+	            );
+	        }
+	    }, {
+	        key: 'showContent',
+	        value: function showContent() {
+	            console.log("******");
+	            var item = this.props.data;
+
+	            if (this.refs.content.className === "hide-content") {
+	                this.refs.summary.className = "hide-content";
+	                this.refs.content.className = "show-content";
+	            } else {
+	                this.refs.summary.className = "show-content";
+	                this.refs.content.className = "hide-content";
+	            }
+	        }
+	    }]);
+
+	    return LongCommentItem;
+	}(_react2.default.Component);
+
+	exports.default = LongCommentItem;
+
+/***/ }),
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsPureRenderMixin = __webpack_require__(290);
+
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+	var _Header = __webpack_require__(325);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _Loading = __webpack_require__(313);
+
+	var _StarMsgInfo = __webpack_require__(341);
+
+	var _StarMsgInfo2 = _interopRequireDefault(_StarMsgInfo);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var StarMsg = function (_React$Component) {
+	    _inherits(StarMsg, _React$Component);
+
+	    function StarMsg(props, context) {
+	        _classCallCheck(this, StarMsg);
+
+	        var _this = _possibleConstructorReturn(this, (StarMsg.__proto__ || Object.getPrototypeOf(StarMsg)).call(this, props, context));
+
+	        _this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+	        _this.getData = _this.getData.bind(_this);
+	        _this.state = {
+	            info: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(StarMsg, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                this.state.info ? _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(_Header2.default, { title: this.state.info.name_en + " " + this.state.info.name }),
+	                    _react2.default.createElement(_StarMsgInfo2.default, { data: this.state.info })
+	                ) : _react2.default.createElement(_Loading.LoadingData, null)
+	            );
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.getData();
+	        }
+	    }, {
+	        key: 'getData',
+	        value: function getData() {
+	            var _this2 = this;
+
+	            var url = 'https://api.douban.com/v2/movie/celebrity/' + this.props.params.id;
+	            $.ajax({
+	                // 注意这里有个参数callback=?
+	                url: url,
+	                async: true, // 同步请求，发送请求后浏览器将被锁定，只有等到该请求完成(无论成功或失败)后，用户才能操作，js代码才会继续执行
+	                dataType: "jsonp", // 返回JSON格式的数据
+	                success: function success(data, textStatus, jqXHR) {
+	                    console.log(data);
+	                },
+	                error: function error() {
+	                    console.log("&&&");
+	                }
+	            }).then(function (res) {
+	                console.log("*&&&&");
+	                console.log(res);
+	                _this2.setState({
+	                    info: res
+	                });
+	            });
+	        }
+	    }]);
+
+	    return StarMsg;
+	}(_react2.default.Component);
+
+	exports.default = StarMsg;
+
+/***/ }),
+/* 341 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+					value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsPureRenderMixin = __webpack_require__(290);
+
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+	var _Item = __webpack_require__(342);
+
+	var _Item2 = _interopRequireDefault(_Item);
+
+	__webpack_require__(345);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var StarMsgInfo = function (_React$Component) {
+					_inherits(StarMsgInfo, _React$Component);
+
+					function StarMsgInfo(props, context) {
+									_classCallCheck(this, StarMsgInfo);
+
+									var _this = _possibleConstructorReturn(this, (StarMsgInfo.__proto__ || Object.getPrototypeOf(StarMsgInfo)).call(this, props, context));
+
+									_this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+									return _this;
+					}
+
+					_createClass(StarMsgInfo, [{
+									key: 'render',
+									value: function render() {
+													// 获取数据
+													var data = this.props.data;
+													return _react2.default.createElement(
+																	'div',
+																	null,
+																	_react2.default.createElement(
+																					'div',
+																					{ className: 'star-msg' },
+																					_react2.default.createElement('img', { src: data.avatars.large }),
+																					_react2.default.createElement(
+																									'div',
+																									null,
+																									_react2.default.createElement(
+																													'h3',
+																													null,
+																													'\u5F71\u661F\u8D44\u6599'
+																									),
+																									_react2.default.createElement(
+																													'p',
+																													null,
+																													data.name
+																									),
+																									_react2.default.createElement(
+																													'p',
+																													null,
+																													data.name_en
+																									),
+																									_react2.default.createElement(
+																													'p',
+																													null,
+																													data.gender
+																									)
+																					)
+																	),
+																	_react2.default.createElement(
+																					'div',
+																					{ className: 'star-movie-wrap' },
+																					data.gender == '男' ? _react2.default.createElement(
+																									'h3',
+																									null,
+																									'\u4ED6\u7684\u4EE3\u8868\u4F5C\u54C1'
+																					) : _react2.default.createElement(
+																									'h3',
+																									null,
+																									'\u5979\u7684\u4EE3\u8868\u4F5C\u54C1'
+																					),
+																					data.works.map(function (item, index) {
+																									return _react2.default.createElement(_Item2.default, { key: index, data: item });
+																					})
+																	)
+													);
+									}
+					}]);
+
+					return StarMsgInfo;
+	}(_react2.default.Component);
+
+	exports.default = StarMsgInfo;
+
+/***/ }),
+/* 342 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAddonsPureRenderMixin = __webpack_require__(290);
+
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+	var _Star = __webpack_require__(306);
+
+	var _Star2 = _interopRequireDefault(_Star);
+
+	var _reactRouter = __webpack_require__(214);
+
+	__webpack_require__(343);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Item = function (_React$Component) {
+	    _inherits(Item, _React$Component);
+
+	    function Item(props, context) {
+	        _classCallCheck(this, Item);
+
+	        var _this = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props, context));
+
+	        _this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(Item, [{
+	        key: 'render',
+	        value: function render() {
+	            var item = this.props.data;
+	            //console.log(item)
+	            return _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/detail/' + item.subject.id + '/' + item.subject.title },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'star-movie' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'img-info' },
+	                        _react2.default.createElement('img', { src: item.subject.images.small, alt: item.alt })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'other-info' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            null,
+	                            _react2.default.createElement(
+	                                'p',
+	                                null,
+	                                item.subject.title
+	                            ),
+	                            item.roles.map(function (it, index) {
+	                                return _react2.default.createElement(
+	                                    'p',
+	                                    { key: index },
+	                                    it,
+	                                    ' '
+	                                );
+	                            }),
+	                            _react2.default.createElement(
+	                                'p',
+	                                null,
+	                                item.subject.year
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            null,
+	                            _react2.default.createElement(_Star2.default, { className: 'star-container', score: item.subject.rating.average }),
+	                            _react2.default.createElement(
+	                                'p',
+	                                null,
+	                                item.subject.rating.average,
+	                                '\u5206 ',
+	                                item.subject.collect_count,
+	                                '\u4EBA\u8BC4\u4EF7'
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Item;
+	}(_react2.default.Component);
+
+	exports.default = Item;
+
+/***/ }),
+/* 343 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(344);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(281)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(344, function() {
+				var newContent = __webpack_require__(344);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 344 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(280)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".star-movie {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 5px;\n  font-size: 14px;\n  border-bottom: 1px solid #d6d3d3;\n  color: #2c3e50;\n}\n.star-movie .img-info {\n  width: 70px;\n  margin-right: 10px;\n}\n.star-movie img {\n  border: 0;\n}\n.star-movie .other-info {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\ndiv {\n  display: block;\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 345 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(346);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(281)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(346, function() {
+				var newContent = __webpack_require__(346);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(280)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".star-msg {\n  background-color: #b4b1b1;\n  padding: 10px;\n}\n.star-msg img {\n  width: 150px;\n  height: 200px;\n  margin-right: 20px;\n  border: 0;\n}\n.star-msg div {\n  display: inline-block;\n  font-size: 20px;\n  color: #f0eeee;\n  vertical-align: bottom;\n}\n.star-msg h3 {\n  font-size: 25px;\n  color: #fff;\n}\n.star-movie-wrap {\n  padding: 10px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
