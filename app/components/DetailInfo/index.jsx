@@ -1,6 +1,8 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import Star from '../Star'
+import {Link} from 'react-router'
+
 import './style.less'
 
 class DetailInfo extends React.Component {
@@ -68,12 +70,14 @@ class DetailInfo extends React.Component {
 	            				data.directors.map((item,index)=>{
 	            					return(
 	            							<div key={index}>
+	            								<Link to={'/starMsg/'+item.id}>
 		            							<div>
 		            								<img src={item.avatars.small} alt={item.alt}/>
 		            							</div>
 		            							<div className="msg-star-name">
 		            								{item.name}[导演]
 		            							</div>
+		            							</Link>
 	            							</div>
 	            						)
 	            				})
@@ -82,12 +86,14 @@ class DetailInfo extends React.Component {
 	            				data.casts.map((item,index)=>{
 	            					return (
 	            							<div key={index}>
+	            								<Link to={'/starMsg/'+item.id}>
 	            								<div>
 	            									<img src={item.avatars.small} alt={item.alt}/>
 	            								</div>
 	            								<div className="msg-star-name">
 	            									{item.name}
 	            								</div>
+	            								</Link>
 	            							</div>
 	            						)
 	            				})

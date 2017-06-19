@@ -5,6 +5,9 @@ import App from '../containers'
 import Home from '../containers/Home'
 import City from '../containers/City'
 import Detail from '../containers/Detail'
+import ShortComment from '../containers/ShortComment'
+import LongComment from '../containers/LongComment'
+import StarMsg from '../containers/StarMsg'
 import NotFound from '../containers/404'
 // import Login from '../containers/Login'
 
@@ -19,6 +22,9 @@ class RouterMap extends React.Component {
                     <IndexRoute component={Home}/>
                     <Route path='/city' component={City}/>
                     <Route path='/detail/:id/:title' component={Detail}/>
+                    <Route path='/shortComment/:title/:id' component={ShortComment}/>
+                    <Route path='/longComment/:title/:id' component={LongComment}/>
+                    <Route path='/starMsg/:id' component={StarMsg} />
                     <Route path='*' component={NotFound}/>
                 </Route>
             </Router>

@@ -25,7 +25,7 @@ class Detail extends React.Component {
                     ?<div>
                      <Header title={this.props.params.title}/>
                      <DetailInfo data ={this.state.info}/>
-                     <CommentList data={this.state.info.popular_comments}/>
+                     <CommentList data={this.state.info.popular_comments} title={this.props.params.title} id={this.props.params.id}/>
                      </div>
                     :<LoadingData /> 
                 }
