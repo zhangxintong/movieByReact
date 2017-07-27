@@ -1,9 +1,10 @@
 import React from 'react'
+import fetchJsonp from 'fetch-jsonp'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import ListFilm from '../../components/ListFilm'
 //import {spinner}  from 'react-core-image-upload'
 import {LoadingData}from '../../components/Loading'
-
+import 'whatwg-fetch'
 class InTheaters extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -35,27 +36,41 @@ class InTheaters extends React.Component {
     componentDidMount(){
     	 this.getData()
      }
-   
      getData(){
-    	$.ajax({
-		    // 注意这里有个参数callback=?
-		     url: "https://api.douban.com/v2/movie/in_theaters",
-		     async: true ,// 同步请求，发送请求后浏览器将被锁定，只有等到该请求完成(无论成功或失败)后，用户才能操作，js代码才会继续执行
-		     dataType: "jsonp" ,// 返回JSON格式的数据
-		     success: function( data, textStatus, jqXHR ){
-		        console.log(data.subjects)
-		         return data.subjects
-		    },
-		    error:function(){
-		    	console.log("&&&")
-		    }
-		}).then(res=>{
-			console.log("*&&&&")
-			console.log(res)
-			this.setState({
-				data:res.subjects
-			})
-		})
+        let that = this;
+        fetchJsonp(
+            'https://api.douban.com/v2/movie/in_theaters'
+            ).then(function(response) {
+            //console.log("**********",response)
+            return response.json()
+          }).then(function(json) {
+            console.log('parsed json', json)
+            that.setState({
+                data:json.subjects
+            })
+          }).catch(function(ex) {
+            console.log('parsing failed', ex)
+          })
+        
+  //   	$.ajax({
+		//     // 注意这里有个参数callback=?
+		//      url: "https://api.douban.com/v2/movie/in_theaters",
+		//      async: true ,// 同步请求，发送请求后浏览器将被锁定，只有等到该请求完成(无论成功或失败)后，用户才能操作，js代码才会继续执行
+		//      dataType: "jsonp" ,// 返回JSON格式的数据
+		//      success: function( data, textStatus, jqXHR ){
+		//         console.log(data.subjects)
+		//          return data.subjects
+		//     },
+		//     error:function(){
+		//     	console.log("&&&")
+		//     }
+		// }).then(res=>{
+		// 	console.log("*&&&&")
+		// 	console.log(res)
+		// 	this.setState({
+		// 		data:res.subjects
+		// 	})
+		// })
 
     }
   
